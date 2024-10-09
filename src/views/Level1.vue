@@ -3,6 +3,7 @@ import BlockGame from '@/components/BlockGame.vue'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import type { IBlock } from '@/types/block'
 
+
 import { level1 } from '@/data/brends'
 
 // Инициализируем матрицу 7x7 блоков
@@ -246,9 +247,9 @@ onBeforeUnmount(() => {
   <div class="wrapper">
 
 
-    <div class="game">   
-        <BlockGame v-for="block in matrix" :key="block.id"  :data-id="block.id" :elem="block" >
-        </BlockGame> 
+    <div class="game">
+      <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
+      </BlockGame>
     </div>
   </div>
 
@@ -261,6 +262,7 @@ onBeforeUnmount(() => {
   position: relative;
   padding: calc(var(--app-height) * 4.2 / 100);
   background-color:#798EFB;
+  
 }
 
 .play-block {

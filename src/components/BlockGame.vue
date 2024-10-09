@@ -26,9 +26,10 @@ const brandImgs = {
 </script>
 
 <template>
+   
     <div class="block"
-        :style="{ backgroundColor: elem.isHover ? '#ddd' : elem.color, backgroundImage: elem.background ? `url(${brandImgs[elem.background] })` : 'none'}">
-
+        :style="{ backgroundColor: elem.isHover ? '#ddd' : elem.color, backgroundImage: elem.background ? `url(${elem.background ? brandImgs[elem?.background] : ''})` : 'none'}">
+ <img class="block-img" :src="elem.background ? brandImgs[elem?.background] : ''">
 
 
         <svg v-if="(elem.position === 'gorizontal') && !elem.name" class="gorizont" viewBox="0 0 49 49" fill="none"
@@ -206,6 +207,10 @@ top: calc(var(--app-height)* -0.6 / 100);
     background-repeat: no-repeat;
     background-size: 70%;
     background-position: center;
-    background-color:rgba(255, 255, 255, 0.5)
+    background-color:rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 </style>
