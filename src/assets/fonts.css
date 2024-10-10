@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'MTSText';   
+    src:
+        
+        local('MTSText-Regular'),
+        url('@/assets/fonts/MTSText-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/MTSText-Regular.woff') format('woff'),
+        url('@/assets/fonts/MTSText-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MTSText';
+    src:
+        local('MTSWide-Bold'),
+        url('@/assets/fonts/MTSWide-Bold.woff2') format('woff2'),
+        url('@/assets/fonts/MTSWide-Bold.woff') format('woff'),
+        url('@/assets/fonts/MTSWide-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MTSText';
+    src:
+        local('MTSWide-Medium'),
+        url('@/assets/fonts/MTSWide-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/MTSWide-Medium.woff') format('woff'),
+        url('@/assets/fonts/MTSWide-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

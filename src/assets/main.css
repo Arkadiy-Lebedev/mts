@@ -1,15 +1,15 @@
 @import './base.css';
-
+@import './fonts.css';
 body {
-  font-family: 'X5 Sans';
-  font-weight: 300;
+  font-family: 'MTSText';
+  font-weight: normal;
   font-style: normal;
   line-height: calc(var(--app-height) * 2.9 / 100);
   height: var(--app-height);
   width: var(--app-width);
   padding: 0;
   margin: 0;
-  color: #ffffff;
+  color: var(--color-text);
   background: #ffffff;
   overflow: hidden;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -30,4 +30,11 @@ main {
   height: 100%; */
   
   width: 100%;
+}
+
+.modal-container {
+  background-color: #292727cf !important;
+  z-index: 999;
+  position: absolute !important;
+  cursor: auto !important;
 }

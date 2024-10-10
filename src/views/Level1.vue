@@ -11,7 +11,7 @@ import shareTextIcon  from '@/components/icons/shareTextIcon.vue'
 import type { IBlock, IBrendList } from '@/types/block'
 import { level1 } from '@/data/brends'
 
-import {checkIdsMatch } from'@/helpers/functions.ts'
+import {checkIdsMatch } from'@/helpers/functions'
 
 // Инициализируем матрицу 7x7 блоков
 
