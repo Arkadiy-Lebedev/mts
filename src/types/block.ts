@@ -16,7 +16,16 @@ export type IBlock = {
     up: boolean,
     down: boolean,
     colorLine: string,
-    position:string
-    
+    position:string,
+    succesCombo?:{id:string}[]
   
+}
+
+export type IBrendList = {
+  kion: boolean,
+  mts: boolean,
+  darts: boolean,
+  handle: boolean,
+  volt: boolean,
+  shape: boolean,
 }
