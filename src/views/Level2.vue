@@ -2,35 +2,31 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { gsap } from 'gsap'
 import BlockGame from '@/components/BlockGame.vue'
-import level1Icon  from '@/components/icons/level1Icon.vue'
+import level2Icon  from '@/components/icons/level2Icon.vue'
 import iconQuestion  from '@/components/icons/questionIcon .vue'
-import kionTextIcon  from '@/components/icons/kionTextIcon.vue'
-import mtsTextIcon  from '@/components/icons/mtsTextIcon.vue'
-import dartsTextIcon  from '@/components/icons/dartsTextIcon.vue'
-import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
-import shareTextIcon  from '@/components/icons/shareTextIcon.vue'
-import type { IBlock, IBrendListLevel1 } from '@/types/block'
-import { level1 } from '@/data/brends'
+import goatTextIcon  from '@/components/icons/goatTextIcon.vue'
+import peopleTextIcon  from '@/components/icons/peopleTextIcon.vue'
+import bookTextIcon  from '@/components/icons/bookTextIcon.vue'
 import { openModal } from 'jenesius-vue-modal'
 
+import type { IBlock, IBrendListLevel2 } from '@/types/block'
+import { level2 } from '@/data/brends'
 
 import {checkIdsMatch, startBlocks } from'@/helpers/functions'
 
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
+const matrix = ref<IBlock[]>(startBlocks(level2))
 
-const matrix = ref<IBlock[]>(startBlocks(level1))
-
-const activeName = reactive<IBrendListLevel1>({
-  kion: false,
-  mts: false,
-  darts: false,
-  handle: false,
-  volt: false,
-  shape: false,
+const activeName = reactive<IBrendListLevel2>({
+  goat: false,
+  prize: false,
+  arrow: false,
+  cube: false,
+  people: false,
+  book: false,
 })
-
 
 // Переменные для хранения состояния касания
 const startBlockColor = ref<string>('')
@@ -229,12 +225,20 @@ const handleTouchEnd = (event: TouchEvent) => {
         // }        
       }
 
+      
+      //проверка все ли блоки активны значит задание пройдено
+      if(matrix.value.every(item => item.isActive === true)){
+          console.log('УСПЕХХХ',888)
+          openModal('modalLevel2')
+      }
+
+
     })
    
     if (lastBlock && lastBlock.succesCombo) {
 
       // выводит список координат
-          //  console.log(hoveredBlocks.value.map(item => ({id: item.id}))) 
+           console.log(hoveredBlocks.value.map(item => ({id: item.id}))) 
 
       if(checkIdsMatch(hoveredBlocks.value, lastBlock.succesCombo)) {
         // @ts-ignore
@@ -242,13 +246,6 @@ const handleTouchEnd = (event: TouchEvent) => {
        console.log(activeName)
       }
       
-
-      //проверка все ли блоки активны значит задание пройдено
-      if(matrix.value.every(item => item.isActive === true)){
-          console.log('УСПЕХХХ',888)
-          openModal('modalLevel1')
-      }
-
     }
    
 
@@ -268,6 +265,7 @@ const handleTouchEnd = (event: TouchEvent) => {
   hoveredBlocks.value = []
   currentName.value = undefined
 }
+
 
 
 
@@ -419,18 +417,16 @@ window.addEventListener("mouseup", handleMouseUp)
   <div class="wrapper">
     <img class="logo" src="../assets/logo.svg" alt="" >
 
-    <div ref="gameRef" class="game">
-      <kionTextIcon v-if="activeName.kion" class="kion"></kionTextIcon>
-<mtsTextIcon  v-if="activeName.mts" class="mts"></mtsTextIcon>
-    <dartsTextIcon v-if="activeName.darts"  class="darts"></dartsTextIcon>  
-<handleTextIcon v-if="activeName.handle"  class="handle"></handleTextIcon>  
-<shareTextIcon v-if="activeName.shape"  class="shape"></shareTextIcon>  
+    <div ref="gameRef" class="game">      
+      <goatTextIcon v-if="activeName.goat" class="goat"></goatTextIcon>
+      <peopleTextIcon v-if="activeName.people" class="people"></peopleTextIcon>
+       <bookTextIcon v-if="activeName.book" class="book"></bookTextIcon>
     
       <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
-      <level1Icon></level1Icon>
+      <level2Icon></level2Icon>
       <iconQuestion></iconQuestion>
     </div>
     
@@ -438,50 +434,35 @@ window.addEventListener("mouseup", handleMouseUp)
 </template>
 
 <style>
-.shape{
+.book{
   position: absolute;
-  top: calc(var(--app-width)* 52.4 / 100);
-    left: calc(var(--app-width)* 48.3 / 100);
-    width: 40.8%;
-    height: 25.6%;
+  top: calc(var(--app-width)* 77.1 / 100);
+    left: calc(var(--app-width)* 10.4 / 100);
+    width: 32.2%;
+    height: 6.4%;
     z-index: 200;
 }
 
-.handle{
+
+.people{
   position: absolute;
-  top: calc(var(--app-width)* 35.1 / 100);
-    left: calc(var(--app-width)* 2.3 / 100);
-    width: 79.8%;
-    height: 55.6%;
+  top: calc(var(--app-width)* 40.3 / 100);
+    left: calc(var(--app-width)* 11.4 / 100);
+    width: 84%;
+    height: 50%;
     z-index: 200;
 }
 
-.darts{
-  position: absolute;
-  top: calc(var(--app-width)* 27.5 / 100);
-    left: calc(var(--app-width)* 26.4 / 100);
-    width: 57.8%;
-    height: 20.6%;
-    z-index: 200;
-}
-
-.kion{
+.goat{
   position: absolute;
   top: calc(var(--app-width)* 3.6 / 100);
-    left: calc(var(--app-width)* 3.4 / 100);
-    width: 93%;
-    height: 40%;
+    left: calc(var(--app-width)* -8.6 / 100);
+    width: 105%;
+    height: 68%;
     z-index: 200;
 }
 
-.mts{
-  position: absolute;
-  top: calc(var(--app-width)* 15.4 / 100);
-    left: calc(var(--app-width)* 23.4 / 100);
-    width: 44.9%;
-    height: 6.5%;
-    z-index: 200;
-}
+
 .level-box{
   display: flex;
   justify-content: space-between;

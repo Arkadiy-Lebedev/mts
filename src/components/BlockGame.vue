@@ -7,7 +7,18 @@ import handle from '@/assets/images/level1/handle.svg'
 import darts from '@/assets/images/level1/darts.svg'
 import volt from '@/assets/images/level1/volt.svg'
 import shape from '@/assets/images/level1/shape.svg'
-
+import goat from '@/assets/images/level2/goat.svg'
+import prize from '@/assets/images/level2/prize.svg'
+import arrow from '@/assets/images/level2/arrow.svg'
+import cube from '@/assets/images/level2/cube.svg'
+import people from '@/assets/images/level2/people.svg'
+import book from '@/assets/images/level2/book.svg'
+import pixel from '@/assets/images/level3/pixel.svg'
+import l from '@/assets/images/level3/l.svg'
+import heart from '@/assets/images/level3/heart.svg'
+import gourd from '@/assets/images/level3/gourd.svg'
+import sun from '@/assets/images/level3/sun.svg'
+import bol from '@/assets/images/level3/bol.svg'
 defineProps<{
     elem: IBlock,
     
@@ -20,7 +31,19 @@ const brandImgs = {
     handle,
     darts,
     volt,
-    shape
+    shape,
+    goat,
+    prize,
+    arrow,
+    cube,
+    people,
+    book,
+    pixel,
+    l,
+    heart,
+    gourd,
+    sun,
+    bol
 
 }
 </script>

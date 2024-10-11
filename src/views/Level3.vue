@@ -2,35 +2,33 @@
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { gsap } from 'gsap'
 import BlockGame from '@/components/BlockGame.vue'
-import level1Icon  from '@/components/icons/level1Icon.vue'
+import level3Icon  from '@/components/icons/level3Icon.vue'
+import heartTextIcon  from '@/components/icons/heartTextIcon.vue'
+import pixelTextIcon  from '@/components/icons/pixelTextIcon.vue'
+import lTextIcon  from '@/components/icons/lTextIcon.vue'
+import goardTextIcon  from '@/components/icons/goardTextIcon.vue'
+import bolTextIcon  from '@/components/icons/bolTextIcon.vue'
+import sunTextIcon  from '@/components/icons/sunTextIcon.vue'
 import iconQuestion  from '@/components/icons/questionIcon .vue'
-import kionTextIcon  from '@/components/icons/kionTextIcon.vue'
-import mtsTextIcon  from '@/components/icons/mtsTextIcon.vue'
-import dartsTextIcon  from '@/components/icons/dartsTextIcon.vue'
-import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
-import shareTextIcon  from '@/components/icons/shareTextIcon.vue'
-import type { IBlock, IBrendListLevel1 } from '@/types/block'
-import { level1 } from '@/data/brends'
 import { openModal } from 'jenesius-vue-modal'
-
+import type { IBlock, IBrendListLevel3 } from '@/types/block'
+import { level3 } from '@/data/brends'
 
 import {checkIdsMatch, startBlocks } from'@/helpers/functions'
 
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
+const matrix = ref<IBlock[]>(startBlocks(level3))
 
-const matrix = ref<IBlock[]>(startBlocks(level1))
-
-const activeName = reactive<IBrendListLevel1>({
-  kion: false,
-  mts: false,
-  darts: false,
-  handle: false,
-  volt: false,
-  shape: false,
+const activeName = reactive<IBrendListLevel3>({
+  pixel:false,
+    l:false,
+    heart:false,
+    gourd:false,
+    sun:false,
+    bol:false,
 })
-
 
 // Переменные для хранения состояния касания
 const startBlockColor = ref<string>('')
@@ -229,12 +227,20 @@ const handleTouchEnd = (event: TouchEvent) => {
         // }        
       }
 
+      
+      //проверка все ли блоки активны значит задание пройдено
+      if(matrix.value.every(item => item.isActive === true)){
+          console.log('УСПЕХХХ',888)
+          openModal('modalFinal')
+      }
+
+
     })
    
     if (lastBlock && lastBlock.succesCombo) {
 
       // выводит список координат
-          //  console.log(hoveredBlocks.value.map(item => ({id: item.id}))) 
+           console.log(hoveredBlocks.value.map(item => ({id: item.id}))) 
 
       if(checkIdsMatch(hoveredBlocks.value, lastBlock.succesCombo)) {
         // @ts-ignore
@@ -242,13 +248,6 @@ const handleTouchEnd = (event: TouchEvent) => {
        console.log(activeName)
       }
       
-
-      //проверка все ли блоки активны значит задание пройдено
-      if(matrix.value.every(item => item.isActive === true)){
-          console.log('УСПЕХХХ',888)
-          openModal('modalLevel1')
-      }
-
     }
    
 
@@ -268,6 +267,7 @@ const handleTouchEnd = (event: TouchEvent) => {
   hoveredBlocks.value = []
   currentName.value = undefined
 }
+
 
 
 
@@ -419,18 +419,18 @@ window.addEventListener("mouseup", handleMouseUp)
   <div class="wrapper">
     <img class="logo" src="../assets/logo.svg" alt="" >
 
-    <div ref="gameRef" class="game">
-      <kionTextIcon v-if="activeName.kion" class="kion"></kionTextIcon>
-<mtsTextIcon  v-if="activeName.mts" class="mts"></mtsTextIcon>
-    <dartsTextIcon v-if="activeName.darts"  class="darts"></dartsTextIcon>  
-<handleTextIcon v-if="activeName.handle"  class="handle"></handleTextIcon>  
-<shareTextIcon v-if="activeName.shape"  class="shape"></shareTextIcon>  
-    
+    <div ref="gameRef" class="game">      
+      <heartTextIcon v-if="activeName.heart" class="heart"></heartTextIcon>
+     <pixelTextIcon v-if="activeName.pixel" class="pixel"></pixelTextIcon>
+     <lTextIcon v-if="activeName.l" class="l"></lTextIcon>
+  <goardTextIcon v-if="activeName.gourd" class="gourd"></goardTextIcon>
+  <bolTextIcon v-if="activeName.bol" class="bol"></bolTextIcon>
+      <sunTextIcon v-if="activeName.sun" class="sun"></sunTextIcon> 
       <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
-      <level1Icon></level1Icon>
+      <level3Icon></level3Icon>
       <iconQuestion></iconQuestion>
     </div>
     
@@ -438,50 +438,61 @@ window.addEventListener("mouseup", handleMouseUp)
 </template>
 
 <style>
-.shape{
-  position: absolute;
-  top: calc(var(--app-width)* 52.4 / 100);
-    left: calc(var(--app-width)* 48.3 / 100);
-    width: 40.8%;
-    height: 25.6%;
+.sun{
+    position: absolute;
+    top: calc(var(--app-width)* 27.7 / 100);
+    left: calc(var(--app-width)* 36.3 / 100);
+    width: 39.8%;
+    height: 64%;
     z-index: 200;
 }
 
-.handle{
-  position: absolute;
-  top: calc(var(--app-width)* 35.1 / 100);
-    left: calc(var(--app-width)* 2.3 / 100);
-    width: 79.8%;
-    height: 55.6%;
+
+.bol{
+    position: absolute;
+    top: calc(var(--app-width)* 52.1 / 100);
+    left: calc(var(--app-width)* 1.4 / 100);
+    width: 16.2%;
+    height: 35.7%;
     z-index: 200;
 }
 
-.darts{
-  position: absolute;
-  top: calc(var(--app-width)* 27.5 / 100);
-    left: calc(var(--app-width)* 26.4 / 100);
-    width: 57.8%;
-    height: 20.6%;
+.gourd{
+    position: absolute;
+    top: calc(var(--app-width)* 48.1 / 100);
+    left: calc(var(--app-width)* 51.4 / 100);
+    width: 12.2%;
+    height: 11.7%;
     z-index: 200;
 }
 
-.kion{
+.l{
+    position: absolute;
+    top: calc(var(--app-width)* 34.5 / 100);
+    left: calc(var(--app-width)* 23.8 / 100);
+    width: 11.2%;
+    height: 42.4%;
+    z-index: 200;
+}
+
+.heart{
   position: absolute;
-  top: calc(var(--app-width)* 3.6 / 100);
+  top: calc(var(--app-width)* 3.1 / 100);
     left: calc(var(--app-width)* 3.4 / 100);
-    width: 93%;
-    height: 40%;
+    width: 92.2%;
+    height: 93.4%;
     z-index: 200;
 }
 
-.mts{
+.pixel{
   position: absolute;
-  top: calc(var(--app-width)* 15.4 / 100);
-    left: calc(var(--app-width)* 23.4 / 100);
-    width: 44.9%;
-    height: 6.5%;
+  top: calc(var(--app-width)* 15.5 / 100);
+    left: calc(var(--app-width)* 14.6 / 100);
+    width: 56.2%;
+    height: 11.4%;
     z-index: 200;
 }
+
 .level-box{
   display: flex;
   justify-content: space-between;
