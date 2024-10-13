@@ -8,28 +8,25 @@ import kionTextIcon  from '@/components/icons/kionTextIcon.vue'
 import mtsTextIcon  from '@/components/icons/mtsTextIcon.vue'
 import dartsTextIcon  from '@/components/icons/dartsTextIcon.vue'
 import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
-import shareTextIcon  from '@/components/icons/shareTextIcon.vue'
+import shareTextIcon from '@/components/icons/shareTextIcon.vue'
+import reloadBtn from '@/components/icons/reloadBtn.vue'
 import type { IBlock, IBrendListLevel1 } from '@/types/block'
 import { level1 } from '@/data/brends'
 import { openModal } from 'jenesius-vue-modal'
+import { useRouter } from 'vue-router'
 
 
-import {checkIdsMatch, startBlocks } from'@/helpers/functions'
+const router = useRouter()
+
+
+import { checkIdsMatch, startBlocks, defaultActiveName } from'@/helpers/functions'
 
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
 
-const matrix = ref<IBlock[]>(startBlocks(level1))
-
-const activeName = reactive<IBrendListLevel1>({
-  kion: false,
-  mts: false,
-  darts: false,
-  handle: false,
-  volt: false,
-  shape: false,
-})
+const matrix = ref<IBlock[]>([])
+const activeName = reactive<IBrendListLevel1>(defaultActiveName)
 
 
 // Переменные для хранения состояния касания
@@ -37,6 +34,19 @@ const startBlockColor = ref<string>('')
 const currentName = ref<string | undefined>(undefined)
 const hoveredBlocks = ref<IBlock[]>([])
 const lastBlocks = ref<IBlock>()
+
+const starttGame = () => {
+  matrix.value = startBlocks(level1)
+activeName.darts = false
+  activeName.handle = false
+  activeName.kion = false
+  activeName.mts = false
+  activeName.shape = false
+  activeName.volt = false
+  hoveredBlocks.value = []
+}
+starttGame()
+
 
 
 // Найти блок по координатам касания
@@ -339,7 +349,11 @@ const handleMouseUp  = (event: MouseEvent) => {
         //   block.position = 'down_right'
         // }        
       }
-
+      //проверка все ли блоки активны значит задание пройдено
+      if (matrix.value.every(item => item.isActive === true)) {
+        console.log('УСПЕХХХ', 888)
+        openModal('modalFinal')
+      }
     })
    
     if (lastBlock && lastBlock.succesCombo) {
@@ -412,32 +426,47 @@ window.addEventListener('mousedown', handleMouseDown)
 window.addEventListener("mousemove", handleMouseMove)
 window.addEventListener("mouseup", handleMouseUp)
 })
+
+const restart = () => {
+  starttGame()
+  
+}
 </script>
 
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="" >
+    <img class="logo" src="../assets/logo.svg" alt="">
 
     <div ref="gameRef" class="game">
+      <reloadBtn @click="restart" class="reload_btn"></reloadBtn>
       <kionTextIcon v-if="activeName.kion" class="kion"></kionTextIcon>
-<mtsTextIcon  v-if="activeName.mts" class="mts"></mtsTextIcon>
-    <dartsTextIcon v-if="activeName.darts"  class="darts"></dartsTextIcon>  
-<handleTextIcon v-if="activeName.handle"  class="handle"></handleTextIcon>  
-<shareTextIcon v-if="activeName.shape"  class="shape"></shareTextIcon>  
-    
+      <mtsTextIcon v-if="activeName.mts" class="mts"></mtsTextIcon>
+      <dartsTextIcon v-if="activeName.darts" class="darts"></dartsTextIcon>
+      <handleTextIcon v-if="activeName.handle" class="handle"></handleTextIcon>
+      <shareTextIcon v-if="activeName.shape" class="shape"></shareTextIcon>
+
       <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
       <level1Icon></level1Icon>
-      <iconQuestion></iconQuestion>
+      <iconQuestion @click="router.push({ name: 'Instruction'})"></iconQuestion>
     </div>
-    
+
   </div>
 </template>
 
 <style>
+.reload_btn{
+  position: absolute;
+    bottom: calc(var(--app-width)* -23.6 / 100);
+      left: calc(var(--app-width)* 24 / 100);
+      width: 42%;
+      height: 25.9%;
+    z-index: 200; 
+}
+
 .shape{
   position: absolute;
   top: calc(var(--app-width)* 52.4 / 100);

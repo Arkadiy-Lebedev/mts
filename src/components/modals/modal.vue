@@ -2,11 +2,21 @@
 import ButtonMts from '@/UI/ButtonMts.vue'
 import { useRouter } from 'vue-router'
 import { closeModal } from 'jenesius-vue-modal'
+import { useHelperStore } from '@/stores/helper'
+
+const helperStore = useHelperStore()
 const router = useRouter()
 
 const next = () => {
+    if (!helperStore.isInstructions) {
+        helperStore.isInstructions = true
+          closeModal()
+        router.push({ name: 'level1' })
+    return
+    }   
     closeModal()
-    router.push({ name: 'level1' })
+    router.go(-1)
+   
 }
 
 </script>

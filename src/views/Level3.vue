@@ -13,28 +13,34 @@ import iconQuestion  from '@/components/icons/questionIcon .vue'
 import { openModal } from 'jenesius-vue-modal'
 import type { IBlock, IBrendListLevel3 } from '@/types/block'
 import { level3 } from '@/data/brends'
-
-import {checkIdsMatch, startBlocks } from'@/helpers/functions'
-
+import { useRouter } from 'vue-router'
+import reloadBtn from '@/components/icons/reloadBtn.vue'
+import { checkIdsMatch, startBlocks, defaultActiveNameLevel3 } from '@/helpers/functions'
+const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
 const matrix = ref<IBlock[]>(startBlocks(level3))
 
-const activeName = reactive<IBrendListLevel3>({
-  pixel:false,
-    l:false,
-    heart:false,
-    gourd:false,
-    sun:false,
-    bol:false,
-})
+const activeName = reactive<IBrendListLevel3>(defaultActiveNameLevel3)
 
 // Переменные для хранения состояния касания
 const startBlockColor = ref<string>('')
 const currentName = ref<string | undefined>(undefined)
 const hoveredBlocks = ref<IBlock[]>([])
 const lastBlocks = ref<IBlock>()
+
+const starttGame = () => {
+  matrix.value = startBlocks(level3)
+  activeName.bol= false,
+  activeName.gourd= false,
+  activeName.heart= false,
+  activeName.l= false,
+  activeName.pixel= false,
+  activeName.sun= false,
+  hoveredBlocks.value = []
+}
+starttGame()
 
 
 // Найти блок по координатам касания
@@ -339,6 +345,11 @@ const handleMouseUp  = (event: MouseEvent) => {
         //   block.position = 'down_right'
         // }        
       }
+      //проверка все ли блоки активны значит задание пройдено
+      if (matrix.value.every(item => item.isActive === true)) {
+        console.log('УСПЕХХХ', 888)
+        openModal('modalFinal')
+      }
 
     })
    
@@ -350,7 +361,8 @@ const handleMouseUp  = (event: MouseEvent) => {
       if(checkIdsMatch(hoveredBlocks.value, lastBlock.succesCombo)) {
         // @ts-ignore
          activeName[lastBlock.name] = true
-       console.log(activeName)
+        console.log(activeName)
+       
       }
       
     }
@@ -417,27 +429,36 @@ window.addEventListener("mouseup", handleMouseUp)
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="" >
+    <img class="logo" src="../assets/logo.svg" alt="">
 
-    <div ref="gameRef" class="game">      
+    <div ref="gameRef" class="game">
+      <reloadBtn @click="starttGame" class="reload_btn"></reloadBtn>
       <heartTextIcon v-if="activeName.heart" class="heart"></heartTextIcon>
-     <pixelTextIcon v-if="activeName.pixel" class="pixel"></pixelTextIcon>
-     <lTextIcon v-if="activeName.l" class="l"></lTextIcon>
-  <goardTextIcon v-if="activeName.gourd" class="gourd"></goardTextIcon>
-  <bolTextIcon v-if="activeName.bol" class="bol"></bolTextIcon>
-      <sunTextIcon v-if="activeName.sun" class="sun"></sunTextIcon> 
+      <pixelTextIcon v-if="activeName.pixel" class="pixel"></pixelTextIcon>
+      <lTextIcon v-if="activeName.l" class="l"></lTextIcon>
+      <goardTextIcon v-if="activeName.gourd" class="gourd"></goardTextIcon>
+      <bolTextIcon v-if="activeName.bol" class="bol"></bolTextIcon>
+      <sunTextIcon v-if="activeName.sun" class="sun"></sunTextIcon>
       <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
       <level3Icon></level3Icon>
-      <iconQuestion></iconQuestion>
+      <iconQuestion @click="router.push({ name: 'Instruction' })"></iconQuestion>
     </div>
-    
+
   </div>
 </template>
 
 <style>
+.reload_btn {
+  position: absolute;
+  bottom: calc(var(--app-width)* -23.6 / 100);
+  left: calc(var(--app-width)* 24 / 100);
+  width: 42%;
+  height: 25.9%;
+  z-index: 200;
+}
 .sun{
     position: absolute;
     top: calc(var(--app-width)* 27.7 / 100);

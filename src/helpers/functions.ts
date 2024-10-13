@@ -1,4 +1,4 @@
-import type { IBlock } from '@/types/block'
+import type { IBlock, IBrendListLevel1, IBrendListLevel2, IBrendListLevel3 } from '@/types/block'
 
 export const  checkIdsMatch = (arr1:IBlock[], arr2:{id:string}[]) => {
     if (arr1.length !== arr2.length) {
@@ -23,6 +23,8 @@ export const  checkIdsMatch = (arr1:IBlock[], arr2:{id:string}[]) => {
 
 export const startBlocks = (brendsLevel:IBlock[]) :IBlock[]=> {
 
+    const copybrendsLevel:IBlock[] = JSON.parse(JSON.stringify(brendsLevel))
+
     const blocks:IBlock[] = []
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 7; j++) {
@@ -43,7 +45,7 @@ export const startBlocks = (brendsLevel:IBlock[]) :IBlock[]=> {
         }
       }
 
-      brendsLevel.forEach(block => {
+      copybrendsLevel.forEach(block => {
         const index = blocks.findIndex(el => el.id === block.id)  
       
         if (index !== -1) {
@@ -53,4 +55,32 @@ export const startBlocks = (brendsLevel:IBlock[]) :IBlock[]=> {
     
 
     return blocks
+}
+
+
+export const defaultActiveName:IBrendListLevel1 = {
+  kion: false,
+  mts: false,
+  darts: false,
+  handle: false,
+  volt: false,
+  shape: false,
+}
+
+export const defaultActiveNameLevel2:IBrendListLevel2 = {
+  goat: false,
+  prize: false,
+  arrow: false,
+  cube: false,
+  people: false,
+  book: false,
+}
+
+export const defaultActiveNameLevel3:IBrendListLevel3 = {
+   pixel:false,
+    l:false,
+    heart:false,
+    gourd:false,
+    sun:false,
+    bol:false,
 }

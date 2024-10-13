@@ -8,25 +8,19 @@ import goatTextIcon  from '@/components/icons/goatTextIcon.vue'
 import peopleTextIcon  from '@/components/icons/peopleTextIcon.vue'
 import bookTextIcon  from '@/components/icons/bookTextIcon.vue'
 import { openModal } from 'jenesius-vue-modal'
-
+import { useRouter } from 'vue-router'
 import type { IBlock, IBrendListLevel2 } from '@/types/block'
 import { level2 } from '@/data/brends'
+import reloadBtn from '@/components/icons/reloadBtn.vue'
 
-import {checkIdsMatch, startBlocks } from'@/helpers/functions'
-
+import { checkIdsMatch, startBlocks, defaultActiveNameLevel2 } from '@/helpers/functions'
+const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
 const matrix = ref<IBlock[]>(startBlocks(level2))
 
-const activeName = reactive<IBrendListLevel2>({
-  goat: false,
-  prize: false,
-  arrow: false,
-  cube: false,
-  people: false,
-  book: false,
-})
+const activeName = reactive<IBrendListLevel2>(defaultActiveNameLevel2)
 
 // Переменные для хранения состояния касания
 const startBlockColor = ref<string>('')
@@ -34,6 +28,17 @@ const currentName = ref<string | undefined>(undefined)
 const hoveredBlocks = ref<IBlock[]>([])
 const lastBlocks = ref<IBlock>()
 
+const starttGame = () => {
+  matrix.value = startBlocks(level2)
+  activeName.arrow = false
+  activeName.book = false
+  activeName.cube = false
+  activeName.goat = false
+  activeName.people = false
+  activeName.prize = false
+  hoveredBlocks.value = []
+}
+starttGame()
 
 // Найти блок по координатам касания
 const findBlockByCoordinates = (x: number, y: number): IBlock | undefined => {
@@ -337,7 +342,11 @@ const handleMouseUp  = (event: MouseEvent) => {
         //   block.position = 'down_right'
         // }        
       }
-
+      //проверка все ли блоки активны значит задание пройдено
+      if (matrix.value.every(item => item.isActive === true)) {
+        console.log('УСПЕХХХ', 888)
+        openModal('modalFinal')
+      }
     })
    
     if (lastBlock && lastBlock.succesCombo) {
@@ -415,25 +424,34 @@ window.addEventListener("mouseup", handleMouseUp)
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="" >
+    <img class="logo" src="../assets/logo.svg" alt="">
 
-    <div ref="gameRef" class="game">      
+    <div ref="gameRef" class="game">
+      <reloadBtn @click="starttGame" class="reload_btn"></reloadBtn>
       <goatTextIcon v-if="activeName.goat" class="goat"></goatTextIcon>
       <peopleTextIcon v-if="activeName.people" class="people"></peopleTextIcon>
-       <bookTextIcon v-if="activeName.book" class="book"></bookTextIcon>
-    
+      <bookTextIcon v-if="activeName.book" class="book"></bookTextIcon>
+
       <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
       <level2Icon></level2Icon>
-      <iconQuestion></iconQuestion>
+      <iconQuestion @click="router.push({ name: 'Instruction' })"></iconQuestion>
     </div>
-    
+
   </div>
 </template>
 
 <style>
+.reload_btn {
+  position: absolute;
+  bottom: calc(var(--app-width)* -23.6 / 100);
+  left: calc(var(--app-width)* 24 / 100);
+  width: 42%;
+  height: 25.9%;
+  z-index: 200;
+}
 .book{
   position: absolute;
   top: calc(var(--app-width)* 77.1 / 100);

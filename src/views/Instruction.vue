@@ -4,6 +4,7 @@ import ButtonMts from '../UI/ButtonMts.vue'
 import cheeseBlock from '../components/icons/cheeseBlock.vue'
 import { openModal } from 'jenesius-vue-modal'
 
+
 const router = useRouter()
 
 </script>
