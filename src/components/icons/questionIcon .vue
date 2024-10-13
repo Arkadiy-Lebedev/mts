@@ -15,5 +15,17 @@
 <style scoped>
 .icon-question{
     width: calc(var(--app-width)* 14.4 / 100);
+  cursor: pointer;
+transition: all 0.3s ease;  
+}
+
+
+@media (min-width: 768px) {
+    .icon-question:hover rect {
+        fill: #d8032e;
+        stroke:#d8032e;
+    }
+
+
 }
 </style>

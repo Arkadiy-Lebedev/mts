@@ -133,7 +133,7 @@ top: calc(var(--app-height)* 15 / 100);
 
 .kion {
     position: absolute;
-top: calc(var(--app-height)* -2.6 / 100);
+top: calc(var(--app-height)* 13.4 / 100);
     left: calc(var(--app-height)* 33.3 / 100);
         width: calc(var(--app-height)* 16.6 / 100);
         z-index: 2;

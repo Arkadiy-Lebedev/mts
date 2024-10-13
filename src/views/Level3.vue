@@ -16,6 +16,8 @@ import { level3 } from '@/data/brends'
 import { useRouter } from 'vue-router'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
 import { checkIdsMatch, startBlocks, defaultActiveNameLevel3 } from '@/helpers/functions'
+import Logo from '@/components/icons/Logo.vue'
+
 const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
 
@@ -429,8 +431,8 @@ window.addEventListener("mouseup", handleMouseUp)
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="">
-
+    <!-- <img class="logo" src="../assets/logo.svg" alt=""> -->
+    <Logo class="logo"></Logo>
     <div ref="gameRef" class="game">
       <reloadBtn @click="starttGame" class="reload_btn"></reloadBtn>
       <heartTextIcon v-if="activeName.heart" class="heart"></heartTextIcon>
@@ -520,12 +522,13 @@ window.addEventListener("mouseup", handleMouseUp)
   margin-top: calc(var(--app-height)* 17.4 / 100);
 }
 
-.logo{
+.logo {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 200;
-width: calc(var(--app-height) * 10.8 / 100);
+  width: calc(var(--app-width) * 19.2 / 100);
+  height: calc(var(--app-width) * 19.2 / 100);
 }
 
 .wrapper {

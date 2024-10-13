@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <svg width="135" height="54" viewBox="0 0 135 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="reload" width="135" height="54" viewBox="0 0 135 54" fill="none" xmlns="http://www.w3.org/2000/svg">
    
       <rect width="135" height="54" rx="16" fill="#FF0032" />
       <path 
@@ -16,5 +16,17 @@
 
 <style scoped>
 
+.reload {
+cursor: pointer;
+  /* transition: all 0.3s ease; */
+}
+
+@media (min-width: 768px) {
+  .reload:hover rect{
+    fill: #d8032e;
+  }
+
+
+}
 
 </style>

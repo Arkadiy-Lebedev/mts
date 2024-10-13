@@ -12,7 +12,7 @@ import { useRouter } from 'vue-router'
 import type { IBlock, IBrendListLevel2 } from '@/types/block'
 import { level2 } from '@/data/brends'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
-
+import Logo from '@/components/icons/Logo.vue'
 import { checkIdsMatch, startBlocks, defaultActiveNameLevel2 } from '@/helpers/functions'
 const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
@@ -424,8 +424,8 @@ window.addEventListener("mouseup", handleMouseUp)
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="">
-
+    <!-- <img class="logo" src="../assets/logo.svg" alt=""> -->
+    <Logo class="logo"></Logo>
     <div ref="gameRef" class="game">
       <reloadBtn @click="starttGame" class="reload_btn"></reloadBtn>
       <goatTextIcon v-if="activeName.goat" class="goat"></goatTextIcon>
@@ -487,12 +487,13 @@ window.addEventListener("mouseup", handleMouseUp)
   margin-top: calc(var(--app-height)* 17.4 / 100);
 }
 
-.logo{
+.logo {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 200;
-width: calc(var(--app-height) * 10.8 / 100);
+  width: calc(var(--app-width) * 19.2 / 100);
+  height: calc(var(--app-width) * 19.2 / 100);
 }
 
 .wrapper {

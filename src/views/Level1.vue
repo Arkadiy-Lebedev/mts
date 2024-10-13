@@ -12,6 +12,7 @@ import shareTextIcon from '@/components/icons/shareTextIcon.vue'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
 import type { IBlock, IBrendListLevel1 } from '@/types/block'
 import { level1 } from '@/data/brends'
+import Logo from '@/components/icons/Logo.vue'
 import { openModal } from 'jenesius-vue-modal'
 import { useRouter } from 'vue-router'
 
@@ -436,7 +437,8 @@ const restart = () => {
 
 <template>
   <div class="wrapper">
-    <img class="logo" src="../assets/logo.svg" alt="">
+    <!-- <img class="logo" src="../assets/logo.svg" alt=""> -->
+    <Logo class="logo"></Logo>
 
     <div ref="gameRef" class="game">
       <reloadBtn @click="restart" class="reload_btn"></reloadBtn>
@@ -457,7 +459,7 @@ const restart = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .reload_btn{
   position: absolute;
     bottom: calc(var(--app-width)* -23.6 / 100);
@@ -522,7 +524,8 @@ const restart = () => {
   top: 0;
   right: 0;
   z-index: 200;
-width: calc(var(--app-height) * 10.8 / 100);
+width: calc(var(--app-width) * 19.2 / 100);
+height: calc(var(--app-width) * 19.2 / 100);
 }
 
 .wrapper {

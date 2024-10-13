@@ -40,7 +40,7 @@ main {
   cursor: auto !important;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   :root {
     /* --app-width: 52dvh !important;
     --app-height:93dvh; */
