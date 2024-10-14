@@ -27,9 +27,9 @@
     font-family: 'MTSText';
     src:
         local('MTSWide-Medium'),
-        url('@/assets/fonts/SBSansUI-Semibold.woff2') format('woff2'),
-        url('@/assets/fonts/SBSansUI-Semibold.woff') format('woff'),
-        url('@/assets/fonts/SBSansUI-Semibold.ttf') format('truetype');
+        url('@/assets/fonts/MTSWide-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/MTSWide-Medium.woff') format('woff'),
+        url('@/assets/fonts/MTSWide-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
