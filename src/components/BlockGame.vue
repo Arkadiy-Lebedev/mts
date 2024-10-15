@@ -51,7 +51,7 @@ const brandImgs = {
 <template>
    
     <div class="block"
-        :style="{ backgroundColor: elem.isHover ? '#ddd' : elem.color}">
+        :style="{ backgroundColor: elem.isHover ? '#ddd' : elem.color} ">
  <img class="block-img" :src="elem.background ? brandImgs[elem?.background] : '' ">
 
 
@@ -234,5 +234,13 @@ top: calc(var(--app-height)* -0.5 / 100);
     width: 100%;
     aspect-ratio: 1 / 1;
     
+    -webkit-user-select: none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.block-img{
+    pointer-events:none;
 }
 </style>
