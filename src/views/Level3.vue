@@ -12,15 +12,15 @@ import sunTextIcon  from '@/components/icons/sunTextIcon.vue'
 import iconQuestion  from '@/components/icons/questionIcon .vue'
 import { openModal } from 'jenesius-vue-modal'
 import type { IBlock, IBrendListLevel3 } from '@/types/block'
-import { level3 } from '@/data/brends'
+import { useHelperStore } from '@/stores/helper'
 import { useRouter } from 'vue-router'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
-import { checkIdsMatch, startBlocks, defaultActiveNameLevel3 } from '@/helpers/functions'
+import { checkIdsMatch } from '@/helpers/functions'
 import Logo from '@/components/icons/Logo.vue'
 import { useGameStore } from '@/stores/game'
 
 const gameStore = useGameStore()
-
+const helperStore = useHelperStore()
 const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
 
@@ -242,6 +242,7 @@ const handleTouchEnd = (event: TouchEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if(gameStore.gameLevel3.every(item => item.isActive === true)){
           console.log('УСПЕХХХ',888)
+          helperStore.isInstructions= false
           openModal('modalFinal')
       }
 
@@ -353,6 +354,7 @@ const handleMouseUp  = (event: MouseEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if (gameStore.gameLevel3.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
+        helperStore.isInstructions= false
         openModal('modalFinal')
       }
 
@@ -399,7 +401,7 @@ onMounted(() => {
   if(!gameRef.value){
     return
   }
-  if (gameStore.checkAllFalse(gameStore.activeNameLevel3)) {
+  if (!helperStore.isInstructions) {
     gsap.from(gameRef.value?.children, {
       duration: 1,
       y: -30,
@@ -410,6 +412,8 @@ onMounted(() => {
       stagger: 0.05
     })
   }
+  helperStore.isInstructions = false
+
   window.addEventListener('touchstart', handleTouchStart)
   window.addEventListener('touchmove', handleTouchMove)
   window.addEventListener('touchend', handleTouchEnd)
@@ -432,7 +436,11 @@ window.addEventListener("mousemove", handleMouseMove)
 window.addEventListener("mouseup", handleMouseUp)
 })
 
-
+const goInstruction = () => {
+helperStore.link = 'level3'
+helperStore.isInstructions = true
+router.push({ name: 'Instruction'})
+}
 </script>
 
 
@@ -455,7 +463,7 @@ window.addEventListener("mouseup", handleMouseUp)
     </div>
     <div class="level-box">
       <level3Icon></level3Icon>
-      <iconQuestion @click="router.push({ name: 'Instruction' })"></iconQuestion>
+      <iconQuestion @click="goInstruction"></iconQuestion>
     </div>
 
   </div>

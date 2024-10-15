@@ -7,16 +7,17 @@ import { useHelperStore } from '@/stores/helper'
 const helperStore = useHelperStore()
 const router = useRouter()
 
+
+
 const next = () => {
     if (!helperStore.isInstructions) {
-        helperStore.isInstructions = true
+        // helperStore.isInstructions = true
           closeModal()
         router.push({ name: 'level1' })
     return
     }   
     closeModal()
-    router.go(-1)
-   
+     router.push({ name: helperStore.link})
 }
 
 </script>

@@ -12,6 +12,7 @@ import { useRouter } from 'vue-router'
 import type { IBlock, IBrendListLevel2 } from '@/types/block'
 import { level2 } from '@/data/brends'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
+import { useHelperStore } from '@/stores/helper'
 import Logo from '@/components/icons/Logo.vue'
 import { checkIdsMatch, startBlocks, defaultActiveNameLevel2 } from '@/helpers/functions'
 const router = useRouter()
@@ -19,6 +20,7 @@ const gameRef = ref<HTMLElement | null>(null)
 import { useGameStore } from '@/stores/game'
 
 const gameStore = useGameStore()
+const helperStore = useHelperStore()
 
 // Инициализируем матрицу 7x7 блоков
 const matrix = ref<IBlock[]>(startBlocks(level2))
@@ -237,6 +239,7 @@ const handleTouchEnd = (event: TouchEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if(gameStore.gameLevel2.every(item => item.isActive === true)){
           console.log('УСПЕХХХ',888)
+          helperStore.isInstructions= false
           openModal('modalLevel2')
       }
 
@@ -348,6 +351,7 @@ const handleMouseUp  = (event: MouseEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if (gameStore.gameLevel2.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
+        helperStore.isInstructions= false
         openModal('modalFinal')
       }
     })
@@ -392,7 +396,7 @@ onMounted(() => {
   if(!gameRef.value){
     return
   }
-  if (gameStore.checkAllFalse(gameStore.activeNameLevel2)) {
+  if (!helperStore.isInstructions) {
     gsap.from(gameRef.value?.children, {
       duration: 1,
       y: -30,
@@ -403,6 +407,9 @@ onMounted(() => {
       stagger: 0.05
     })
   }
+
+  helperStore.isInstructions = false
+
   window.addEventListener('touchstart', handleTouchStart)
   window.addEventListener('touchmove', handleTouchMove)
   window.addEventListener('touchend', handleTouchEnd)
@@ -424,6 +431,12 @@ window.addEventListener('mousedown', handleMouseDown)
 window.addEventListener("mousemove", handleMouseMove)
 window.addEventListener("mouseup", handleMouseUp)
 })
+
+const goInstruction = () => {
+helperStore.link = 'level2'
+helperStore.isInstructions = true
+router.push({ name: 'Instruction'})
+}
 </script>
 
 
@@ -442,7 +455,7 @@ window.addEventListener("mouseup", handleMouseUp)
     </div>
     <div class="level-box">
       <level2Icon></level2Icon>
-      <iconQuestion @click="router.push({ name: 'Instruction' })"></iconQuestion>
+      <iconQuestion @click="goInstruction"></iconQuestion>
     </div>
 
   </div>

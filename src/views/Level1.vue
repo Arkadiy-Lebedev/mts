@@ -11,7 +11,7 @@ import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
 import shareTextIcon from '@/components/icons/shareTextIcon.vue'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
 import type { IBlock, IBrendListLevel1 } from '@/types/block'
-
+import { useHelperStore } from '@/stores/helper'
 import Logo from '@/components/icons/Logo.vue'
 import { openModal } from 'jenesius-vue-modal'
 import { useRouter } from 'vue-router'
@@ -19,7 +19,7 @@ import { useGameStore } from '@/stores/game'
 
 const gameStore = useGameStore()
 const router = useRouter()
-
+const helperStore = useHelperStore()
 import { checkIdsMatch } from'@/helpers/functions'
 
 const gameRef = ref<HTMLElement | null>(null)
@@ -257,6 +257,7 @@ const handleTouchEnd = (event: TouchEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if(gameStore.gameLevel1.every(item => item.isActive === true)){
           console.log('УСПЕХХХ',888)
+          helperStore.isInstructions= false          
           openModal('modalLevel1')
       }
 
@@ -353,6 +354,7 @@ const handleMouseUp  = (event: MouseEvent) => {
       //проверка все ли блоки активны значит задание пройдено
       if (gameStore.gameLevel1.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
+        helperStore.isInstructions= false
         openModal('modalFinal')
       }
     })
@@ -394,7 +396,8 @@ onMounted(() => {
   if(!gameRef.value){
     return
   }
-  if (gameStore.checkAllFalse(gameStore.activeNameLevel1)) {
+  
+  if (!helperStore.isInstructions ) {
       gsap.from(gameRef.value?.children, { duration: 1, 
     y: -30, 
     autoAlpha: 0.0, 
@@ -405,6 +408,7 @@ onMounted(() => {
   })
   }
 
+  helperStore.isInstructions = false
 
   window.addEventListener('touchstart', handleTouchStart)
   window.addEventListener('touchmove', handleTouchMove)
@@ -432,6 +436,12 @@ const restart = () => {
   gameStore.restartLevel1()
   hoveredBlocks.value = []
 }
+
+const goInstruction = () => {
+helperStore.link = 'level1'
+helperStore.isInstructions = true
+router.push({ name: 'Instruction'})
+}
 </script>
 
 
@@ -453,7 +463,7 @@ const restart = () => {
     </div>
     <div class="level-box">
       <level1Icon></level1Icon>
-      <iconQuestion @click="router.push({ name: 'Instruction'})"></iconQuestion>
+      <iconQuestion @click="goInstruction"></iconQuestion>
     </div>
 
   </div>
