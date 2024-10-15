@@ -28,6 +28,7 @@ export const useGameStore = defineStore('gameStore', () => {
   activeNameLevel1.mts = false
   activeNameLevel1.shape = false
     activeNameLevel1.volt = false
+    activeNameLevel1.darts = false
     console.log(gameLevel1)
   }
 
