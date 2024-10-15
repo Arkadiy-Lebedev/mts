@@ -567,6 +567,7 @@ height: calc(var(--app-width) * 19.2 / 100);
   grid-template-rows: repeat(7,1fr);
   gap: calc(var(--app-height) * 0.35 / 100);
   margin-top: calc(var(--app-height)* 21.7 / 100);
+  touch-action:none
 }
 
 .block {
