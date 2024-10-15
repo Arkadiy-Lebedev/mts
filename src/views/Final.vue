@@ -48,41 +48,44 @@ gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOu
 
 <template>
     <section class="final">
-      <div class="wrqpper">
-        <div class="start-content" ref="block1Ref">
-            <p class="title">
-                Теперь ты знаешь, как МТС поддерживает и развивает своих сотрудников!   
-            </p>
-            <p class="sub__title">
-                А ещё у тебя есть шанс выиграть классный мерч и промокоды на МТС Premium. Оставляй почту ниже, чтобы принять участие в розыгрыше. Мы свяжемся с победителями 25 ноября. Удачи!
-            </p>
-            <CheckBoxGroup v-model="check" class="check"></CheckBoxGroup>
-            <div class="input-group">
-                 <InputEmail   class="--margin10"
-                v-model="email"
-                placeholder="example@post.ru"
-                :validate="validate"></InputEmail>
-          
+        <div class="wrqpper">
+            <div class="start-content" ref="block1Ref">
+                <p class="title">
+                    Теперь ты знаешь, как МТС поддерживает и развивает своих сотрудников!
+                </p>
+                <p class="sub__title">
+                    А ещё у тебя есть шанс выиграть классный мерч и промокоды на МТС Premium. Оставляй почту ниже, чтобы
+                    принять участие в розыгрыше. Мы свяжемся с победителями 25 ноября. Удачи!
+                </p>
+                <CheckBoxGroup v-model="check" class="check"></CheckBoxGroup>
+                <div class="input-group">
+                    <InputEmail class="--margin10" v-model="email" placeholder="example@post.ru" :validate="validate">
+                    </InputEmail>
+
                     <svg class="button-svg" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="43" height="43" rx="10" fill="#BCC3D0" fill-opacity="0.5"/>
-<path d="M10.1776 22.7058L27.9738 22.7058L22.1371 28.6426L23.9281 30.4282L31.4203 22.8595C32.1955 22.0764 32.1913 20.8138 31.4109 20.0359L23.9228 12.5723L22.1318 14.3579L27.9738 20.1802L10.1776 20.1802L10.1776 22.7058Z" fill="#8D969F"/>
-</svg>
+                        <rect width="43" height="43" rx="10" fill="#BCC3D0" fill-opacity="0.5" />
+                        <path
+                            d="M10.1776 22.7058L27.9738 22.7058L22.1371 28.6426L23.9281 30.4282L31.4203 22.8595C32.1955 22.0764 32.1913 20.8138 31.4109 20.0359L23.9228 12.5723L22.1318 14.3579L27.9738 20.1802L10.1776 20.1802L10.1776 22.7058Z"
+                            fill="#8D969F" />
+                    </svg>
 
-       
+
+                </div>
+
             </div>
-           
-        </div>
-        <div class="start-content block-two" ref="block2Ref">
-      
-            <p class="sub__title">
-                Если хочешь создавать инновационные продукты и менять привычное, переходи на карьерный сайт и оставляй заявку на стажировку.
-            </p>
-            <ButtonMts @click="router.push({ name: 'Instruction' })" class="btn" text="К СТАЖИРОВКЕ">
-            </ButtonMts>
+            <div class="start-content block-two" ref="block2Ref">
 
+                <p class="sub__title">
+                    Если хочешь создавать инновационные продукты и менять привычное, переходи на карьерный сайт и
+                    оставляй заявку на стажировку.
+                </p>
+                <a href="https://job.mts.ru/programs" target="_blank" class="">
+                <ButtonMts class="btn" text="К СТАЖИРОВКЕ">
+                </ButtonMts>
+                </a>
+            </div>
         </div>
-      </div>
-        
+
     </section>
 </template>
 

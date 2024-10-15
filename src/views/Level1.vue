@@ -11,23 +11,23 @@ import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
 import shareTextIcon from '@/components/icons/shareTextIcon.vue'
 import reloadBtn from '@/components/icons/reloadBtn.vue'
 import type { IBlock, IBrendListLevel1 } from '@/types/block'
-import { level1 } from '@/data/brends'
+
 import Logo from '@/components/icons/Logo.vue'
 import { openModal } from 'jenesius-vue-modal'
 import { useRouter } from 'vue-router'
+import { useGameStore } from '@/stores/game'
 
-
+const gameStore = useGameStore()
 const router = useRouter()
 
-
-import { checkIdsMatch, startBlocks, defaultActiveName } from'@/helpers/functions'
+import { checkIdsMatch } from'@/helpers/functions'
 
 const gameRef = ref<HTMLElement | null>(null)
 
 // Инициализируем матрицу 7x7 блоков
 
-const matrix = ref<IBlock[]>([])
-const activeName = reactive<IBrendListLevel1>(defaultActiveName)
+const matrix = ref<IBlock[]>(gameStore.gameLevel1)
+const activeName = reactive<IBrendListLevel1>(gameStore.activeNameLevel1)
 
 
 // Переменные для хранения состояния касания
@@ -36,17 +36,17 @@ const currentName = ref<string | undefined>(undefined)
 const hoveredBlocks = ref<IBlock[]>([])
 const lastBlocks = ref<IBlock>()
 
-const starttGame = () => {
-  matrix.value = startBlocks(level1)
-activeName.darts = false
-  activeName.handle = false
-  activeName.kion = false
-  activeName.mts = false
-  activeName.shape = false
-  activeName.volt = false
-  hoveredBlocks.value = []
-}
-starttGame()
+// const starttGame = () => {
+//   matrix.value = startBlocks(level1)
+// activeName.darts = false
+//   activeName.handle = false
+//   activeName.kion = false
+//   activeName.mts = false
+//   activeName.shape = false
+//   activeName.volt = false
+//   hoveredBlocks.value = []
+// }
+// starttGame()
 
 
 
@@ -56,7 +56,7 @@ const findBlockByCoordinates = (x: number, y: number): IBlock | undefined => {
   const blockElement = elements.find(el => el.classList.contains('block'))
   if (blockElement) {
     const id = blockElement.getAttribute('data-id')
-    return matrix.value.find(block => block.id === id)
+    return gameStore.gameLevel1.find(block => block.id === id)
   }
   return undefined
 }
@@ -69,8 +69,8 @@ const handleTouchMove = (event: TouchEvent) => {
 
 
     if (!hoveredBlocks.value.includes(block)) {
-      let indexBlock = matrix.value.findIndex(el => el.id === block.id)
-      let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id)
+      let indexBlock = gameStore.gameLevel1.findIndex(el => el.id === block.id)
+      let indexlastBlocks = gameStore.gameLevel1.findIndex(el => el.id === lastBlocks.value?.id)
       console.log(indexlastBlocks)
       console.log('ib', indexBlock)
 
@@ -111,8 +111,8 @@ const handleMouseMove = (event: MouseEvent) => {
   const block = findBlockByCoordinates(event.clientX, event.clientY);
   if (block && currentName.value) { // Разрешаем перемещение по любым блокам
     if (!hoveredBlocks.value.includes(block)) {
-      let indexBlock = matrix.value.findIndex(el => el.id === block.id);
-      let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id);
+      let indexBlock = gameStore.gameLevel1.findIndex(el => el.id === block.id);
+      let indexlastBlocks = gameStore.gameLevel1.findIndex(el => el.id === lastBlocks.value?.id);
       console.log(indexlastBlocks);
       console.log('ib', indexBlock);
       if ((!block.name || block.name == currentName.value) && !block.isActive && (indexBlock == indexlastBlocks + 7 || indexBlock == indexlastBlocks + 1 || indexBlock == indexlastBlocks - 7 
@@ -175,12 +175,12 @@ const handleTouchEnd = (event: TouchEvent) => {
   const touch = event.changedTouches[0]
   const lastBlock = findBlockByCoordinates(touch.clientX, touch.clientY)
 
-  let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id)
+  let indexlastBlocks = gameStore.gameLevel1.findIndex(el => el.id === lastBlocks.value?.id)
 
   // Если касание завершилось на блоке с таким же name, как у стартового блока
-  console.log(matrix.value[indexlastBlocks-1])
-  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (matrix.value[indexlastBlocks-1]?.right || matrix.value[indexlastBlocks+1]?.left || 
-  matrix.value[indexlastBlocks+7]?.up || matrix.value[indexlastBlocks-7]?.down)) {
+  console.log(gameStore.gameLevel1[indexlastBlocks-1])
+  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value && (gameStore.gameLevel1[indexlastBlocks-1]?.right || gameStore.gameLevel1[indexlastBlocks+1]?.left || 
+    gameStore.gameLevel1[indexlastBlocks + 7]?.up || gameStore.gameLevel1[indexlastBlocks-7]?.down)) {
     // Делаем все выделенные блоки активными
   
     hoveredBlocks.value.forEach((block, i) => {
@@ -249,13 +249,13 @@ const handleTouchEnd = (event: TouchEvent) => {
 
       if(checkIdsMatch(hoveredBlocks.value, lastBlock.succesCombo)) {
         // @ts-ignore
-         activeName[lastBlock.name] = true
+        gameStore.activeNameLevel1[lastBlock.name] = true
        console.log(activeName)
       }
       
 
       //проверка все ли блоки активны значит задание пройдено
-      if(matrix.value.every(item => item.isActive === true)){
+      if(gameStore.gameLevel1.every(item => item.isActive === true)){
           console.log('УСПЕХХХ',888)
           openModal('modalLevel1')
       }
@@ -286,12 +286,12 @@ const handleTouchEnd = (event: TouchEvent) => {
 
 const handleMouseUp  = (event: MouseEvent) => {
   const lastBlock = findBlockByCoordinates(event.clientX, event.clientY);
-  let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id);
+  let indexlastBlocks = gameStore.gameLevel1.findIndex(el => el.id === lastBlocks.value?.id);
 
   // Если клик завершился на блоке с таким же name, как у стартового блока
-  console.log(matrix.value[indexlastBlocks-1]);
-  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (matrix.value[indexlastBlocks-1]?.right || matrix.value[indexlastBlocks+1]?.left || 
-  matrix.value[indexlastBlocks+7]?.up || matrix.value[indexlastBlocks-7]?.down)) {
+  console.log(gameStore.gameLevel1[indexlastBlocks-1]);
+  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (gameStore.gameLevel1[indexlastBlocks-1]?.right || gameStore.gameLevel1[indexlastBlocks+1]?.left || 
+  gameStore.gameLevel1[indexlastBlocks+7]?.up || gameStore.gameLevel1[indexlastBlocks-7]?.down)) {
     // Делаем все выделенные блоки активными
   
     hoveredBlocks.value.forEach((block, i) => {
@@ -351,7 +351,7 @@ const handleMouseUp  = (event: MouseEvent) => {
         // }        
       }
       //проверка все ли блоки активны значит задание пройдено
-      if (matrix.value.every(item => item.isActive === true)) {
+      if (gameStore.gameLevel1.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
         openModal('modalFinal')
       }
@@ -364,7 +364,7 @@ const handleMouseUp  = (event: MouseEvent) => {
 
       if(checkIdsMatch(hoveredBlocks.value, lastBlock.succesCombo)) {
         // @ts-ignore
-         activeName[lastBlock.name] = true
+        gameStore.activeNameLevel1[lastBlock.name] = true
        console.log(activeName)
       }
       
@@ -389,15 +389,13 @@ const handleMouseUp  = (event: MouseEvent) => {
 }
 
 
-
-
-
 // При монтировании добавляем слушатели событий
 onMounted(() => {
   if(!gameRef.value){
     return
   }
-  gsap.from(gameRef.value?.children, { duration: 1, 
+  if (gameStore.checkAllFalse(gameStore.activeNameLevel1)) {
+      gsap.from(gameRef.value?.children, { duration: 1, 
     y: -30, 
     autoAlpha: 0.0, 
     ease: 'power4.out', 
@@ -405,6 +403,8 @@ onMounted(() => {
     
     stagger: 0.05
   })
+  }
+
 
   window.addEventListener('touchstart', handleTouchStart)
   window.addEventListener('touchmove', handleTouchMove)
@@ -429,8 +429,8 @@ window.addEventListener("mouseup", handleMouseUp)
 })
 
 const restart = () => {
-  starttGame()
-  
+  gameStore.restartLevel1()
+  hoveredBlocks.value = []
 }
 </script>
 
@@ -448,7 +448,7 @@ const restart = () => {
       <handleTextIcon v-if="activeName.handle" class="handle"></handleTextIcon>
       <shareTextIcon v-if="activeName.shape" class="shape"></shareTextIcon>
 
-      <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
+      <BlockGame v-for="block in gameStore.gameLevel1" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">

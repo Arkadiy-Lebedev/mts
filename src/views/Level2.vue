@@ -16,11 +16,14 @@ import Logo from '@/components/icons/Logo.vue'
 import { checkIdsMatch, startBlocks, defaultActiveNameLevel2 } from '@/helpers/functions'
 const router = useRouter()
 const gameRef = ref<HTMLElement | null>(null)
+import { useGameStore } from '@/stores/game'
+
+const gameStore = useGameStore()
 
 // Инициализируем матрицу 7x7 блоков
 const matrix = ref<IBlock[]>(startBlocks(level2))
 
-const activeName = reactive<IBrendListLevel2>(defaultActiveNameLevel2)
+const activeName = reactive<IBrendListLevel2>(gameStore.activeNameLevel2)
 
 // Переменные для хранения состояния касания
 const startBlockColor = ref<string>('')
@@ -28,17 +31,17 @@ const currentName = ref<string | undefined>(undefined)
 const hoveredBlocks = ref<IBlock[]>([])
 const lastBlocks = ref<IBlock>()
 
-const starttGame = () => {
-  matrix.value = startBlocks(level2)
-  activeName.arrow = false
-  activeName.book = false
-  activeName.cube = false
-  activeName.goat = false
-  activeName.people = false
-  activeName.prize = false
-  hoveredBlocks.value = []
-}
-starttGame()
+// const starttGame = () => {
+//   gameStore.gameLevel2 = startBlocks(level2)
+//   activeName.arrow = false
+//   activeName.book = false
+//   activeName.cube = false
+//   activeName.goat = false
+//   activeName.people = false
+//   activeName.prize = false
+//   hoveredBlocks.value = []
+// }
+// starttGame()
 
 // Найти блок по координатам касания
 const findBlockByCoordinates = (x: number, y: number): IBlock | undefined => {
@@ -46,7 +49,7 @@ const findBlockByCoordinates = (x: number, y: number): IBlock | undefined => {
   const blockElement = elements.find(el => el.classList.contains('block'))
   if (blockElement) {
     const id = blockElement.getAttribute('data-id')
-    return matrix.value.find(block => block.id === id)
+    return gameStore.gameLevel2.find(block => block.id === id)
   }
   return undefined
 }
@@ -59,8 +62,8 @@ const handleTouchMove = (event: TouchEvent) => {
 
 
     if (!hoveredBlocks.value.includes(block)) {
-      let indexBlock = matrix.value.findIndex(el => el.id === block.id)
-      let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id)
+      let indexBlock = gameStore.gameLevel2.findIndex(el => el.id === block.id)
+      let indexlastBlocks = gameStore.gameLevel2.findIndex(el => el.id === lastBlocks.value?.id)
       console.log(indexlastBlocks)
       console.log('ib', indexBlock)
 
@@ -101,8 +104,8 @@ const handleMouseMove = (event: MouseEvent) => {
   const block = findBlockByCoordinates(event.clientX, event.clientY);
   if (block && currentName.value) { // Разрешаем перемещение по любым блокам
     if (!hoveredBlocks.value.includes(block)) {
-      let indexBlock = matrix.value.findIndex(el => el.id === block.id);
-      let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id);
+      let indexBlock = gameStore.gameLevel2.findIndex(el => el.id === block.id);
+      let indexlastBlocks = gameStore.gameLevel2.findIndex(el => el.id === lastBlocks.value?.id);
       console.log(indexlastBlocks);
       console.log('ib', indexBlock);
       if ((!block.name || block.name == currentName.value) && !block.isActive && (indexBlock == indexlastBlocks + 7 || indexBlock == indexlastBlocks + 1 || indexBlock == indexlastBlocks - 7 
@@ -165,12 +168,12 @@ const handleTouchEnd = (event: TouchEvent) => {
   const touch = event.changedTouches[0]
   const lastBlock = findBlockByCoordinates(touch.clientX, touch.clientY)
 
-  let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id)
+  let indexlastBlocks = gameStore.gameLevel2.findIndex(el => el.id === lastBlocks.value?.id)
 
   // Если касание завершилось на блоке с таким же name, как у стартового блока
-  console.log(matrix.value[indexlastBlocks-1])
-  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (matrix.value[indexlastBlocks-1]?.right || matrix.value[indexlastBlocks+1]?.left || 
-  matrix.value[indexlastBlocks+7]?.up || matrix.value[indexlastBlocks-7]?.down)) {
+  console.log(gameStore.gameLevel2[indexlastBlocks-1])
+  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (gameStore.gameLevel2[indexlastBlocks-1]?.right || gameStore.gameLevel2[indexlastBlocks+1]?.left || 
+  gameStore.gameLevel2[indexlastBlocks+7]?.up || gameStore.gameLevel2[indexlastBlocks-7]?.down)) {
     // Делаем все выделенные блоки активными
   
     hoveredBlocks.value.forEach((block, i) => {
@@ -232,7 +235,7 @@ const handleTouchEnd = (event: TouchEvent) => {
 
       
       //проверка все ли блоки активны значит задание пройдено
-      if(matrix.value.every(item => item.isActive === true)){
+      if(gameStore.gameLevel2.every(item => item.isActive === true)){
           console.log('УСПЕХХХ',888)
           openModal('modalLevel2')
       }
@@ -278,12 +281,12 @@ const handleTouchEnd = (event: TouchEvent) => {
 
 const handleMouseUp  = (event: MouseEvent) => {
   const lastBlock = findBlockByCoordinates(event.clientX, event.clientY);
-  let indexlastBlocks = matrix.value.findIndex(el => el.id === lastBlocks.value?.id);
+  let indexlastBlocks = gameStore.gameLevel2.findIndex(el => el.id === lastBlocks.value?.id);
 
   // Если клик завершился на блоке с таким же name, как у стартового блока
-  console.log(matrix.value[indexlastBlocks-1]);
-  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (matrix.value[indexlastBlocks-1]?.right || matrix.value[indexlastBlocks+1]?.left || 
-  matrix.value[indexlastBlocks+7]?.up || matrix.value[indexlastBlocks-7]?.down)) {
+  console.log(gameStore.gameLevel2[indexlastBlocks-1]);
+  if (lastBlock == lastBlocks.value && lastBlock && lastBlock.name === currentName.value &&  (gameStore.gameLevel2[indexlastBlocks-1]?.right || gameStore.gameLevel2[indexlastBlocks+1]?.left || 
+  gameStore.gameLevel2[indexlastBlocks+7]?.up || gameStore.gameLevel2[indexlastBlocks-7]?.down)) {
     // Делаем все выделенные блоки активными
   
     hoveredBlocks.value.forEach((block, i) => {
@@ -343,7 +346,7 @@ const handleMouseUp  = (event: MouseEvent) => {
         // }        
       }
       //проверка все ли блоки активны значит задание пройдено
-      if (matrix.value.every(item => item.isActive === true)) {
+      if (gameStore.gameLevel2.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
         openModal('modalFinal')
       }
@@ -389,15 +392,17 @@ onMounted(() => {
   if(!gameRef.value){
     return
   }
-  gsap.from(gameRef.value?.children, { duration: 1, 
-    y: -30, 
-    autoAlpha: 0.0, 
-    ease: 'power4.out', 
-    delay: 0.2, 
-    
-    stagger: 0.05
-  })
+  if (gameStore.checkAllFalse(gameStore.activeNameLevel2)) {
+    gsap.from(gameRef.value?.children, {
+      duration: 1,
+      y: -30,
+      autoAlpha: 0.0,
+      ease: 'power4.out',
+      delay: 0.2,
 
+      stagger: 0.05
+    })
+  }
   window.addEventListener('touchstart', handleTouchStart)
   window.addEventListener('touchmove', handleTouchMove)
   window.addEventListener('touchend', handleTouchEnd)
@@ -427,12 +432,12 @@ window.addEventListener("mouseup", handleMouseUp)
     <!-- <img class="logo" src="../assets/logo.svg" alt=""> -->
     <Logo class="logo"></Logo>
     <div ref="gameRef" class="game">
-      <reloadBtn @click="starttGame" class="reload_btn"></reloadBtn>
+      <reloadBtn @click="gameStore.restartLevel2()" class="reload_btn"></reloadBtn>
       <goatTextIcon v-if="activeName.goat" class="goat"></goatTextIcon>
       <peopleTextIcon v-if="activeName.people" class="people"></peopleTextIcon>
       <bookTextIcon v-if="activeName.book" class="book"></bookTextIcon>
 
-      <BlockGame v-for="block in matrix" :key="block.id" :data-id="block.id" :elem="block">
+      <BlockGame v-for="block in gameStore.gameLevel2" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
     </div>
     <div class="level-box">
