@@ -47,10 +47,10 @@ export const level1: IBlock[] = [
   },
   {
     id: '3-0',
-    color: '#FFFFFF',
+    color: '#505060',
     isActive: false,
     isHover: false,
-    name: 'kion',
+    name: 'volt',
     mainSuccess: false,
     left: false,
     right: false,
@@ -58,7 +58,7 @@ export const level1: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'kion',
+    background: 'volt',
     succesCombo: [
       { id: '3-0' },
       { id: '2-0' },
@@ -76,10 +76,10 @@ export const level1: IBlock[] = [
   },
   {
     id: '2-6',
-    color: '#FFFFFF',
+    color: '#505060',
     isActive: false,
     isHover: false,
-    name: 'kion',
+    name: 'volt',
     mainSuccess: false,
     left: false,
     right: false,
@@ -87,7 +87,7 @@ export const level1: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'kion',
+    background: 'volt',
     succesCombo: [
       { id: '3-0' },
       { id: '2-0' },
@@ -210,10 +210,10 @@ export const level1: IBlock[] = [
 
   {
     id: '5-1',
-    color: '#505060',
+    color: '#FFFFFF',
     isActive: false,
     isHover: false,
-    name: 'volt',
+    name: 'kion',
     mainSuccess: false,
     left: false,
     right: false,
@@ -221,7 +221,7 @@ export const level1: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'volt',
+    background: 'kion',
     succesCombo:[
       {          "id": "5-1"      },
       {          "id": "5-2"      },
@@ -233,10 +233,10 @@ export const level1: IBlock[] = [
   },
   {
     id: '3-4',
-    color: '#505060',
+    color: '#FFFFFF',
     isActive: false,
     isHover: false,
-    name: 'volt',
+    name: 'kion',
     mainSuccess: false,
     left: false,
     right: false,
@@ -244,7 +244,7 @@ export const level1: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'volt',
+    background: 'kion',
     succesCombo:[
       {          "id": "5-1"      },
       {          "id": "5-2"      },
@@ -420,10 +420,10 @@ export const level2: IBlock[] = [
   },
   {
     id: '0-4',
-    color: '#505060',
+    color: '#FFFFFF',
     isActive: false,
     isHover: false,
-    name: 'prize',
+    name: 'book',
     mainSuccess: false,
     left: false,
     right: false,
@@ -431,7 +431,7 @@ export const level2: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'prize',
+    background: 'book',
     succesCombo: [
       {
           "id": "2-1"
@@ -455,10 +455,10 @@ export const level2: IBlock[] = [
   },
   {
     id: '2-1',
-    color: '#505060',
+    color: '#FFFFFF',
     isActive: false,
     isHover: false,
-    name: 'prize',
+    name: 'book',
     mainSuccess: false,
     left: false,
     right: false,
@@ -466,7 +466,7 @@ export const level2: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'prize',
+    background: 'book',
     succesCombo: [
     {
         "id": "2-1"
@@ -752,7 +752,7 @@ export const level2: IBlock[] = [
     color: '#2F2F37',
     isActive: false,
     isHover: false,
-    name: 'book',
+    name: 'prize',
     mainSuccess: false,
     left: false,
     right: false,
@@ -760,7 +760,7 @@ export const level2: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'book',
+    background: 'prize',
     succesCombo:[
       {
           "id": "6-0"
@@ -781,7 +781,7 @@ export const level2: IBlock[] = [
     color: '#2F2F37',
     isActive: false,
     isHover: false,
-    name: 'book',
+    name: 'prize',
     mainSuccess: false,
     left: false,
     right: false,
@@ -789,7 +789,7 @@ export const level2: IBlock[] = [
     down: false,
     colorLine: '',
     position: '',
-    background: 'book',
+    background: 'prize',
     succesCombo:[
       {
           "id": "6-0"

@@ -6,7 +6,7 @@ import level2Icon  from '@/components/icons/level2Icon.vue'
 import iconQuestion  from '@/components/icons/questionIcon .vue'
 import goatTextIcon  from '@/components/icons/goatTextIcon.vue'
 import peopleTextIcon  from '@/components/icons/peopleTextIcon.vue'
-import bookTextIcon  from '@/components/icons/bookTextIcon.vue'
+import prizeTextIcon  from '@/components/icons/prizeTextIcon.vue'
 import { openModal } from 'jenesius-vue-modal'
 import { useRouter } from 'vue-router'
 import type { IBlock, IBrendListLevel2 } from '@/types/block'
@@ -352,7 +352,7 @@ const handleMouseUp  = (event: MouseEvent) => {
       if (gameStore.gameLevel2.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
         helperStore.isInstructions= false
-        openModal('modalFinal')
+        openModal('modalLevel2')
       }
     })
    
@@ -448,7 +448,7 @@ router.push({ name: 'Instruction'})
       <reloadBtn @click="gameStore.restartLevel2()" class="reload_btn"></reloadBtn>
       <goatTextIcon v-if="activeName.goat" class="goat"></goatTextIcon>
       <peopleTextIcon v-if="activeName.people" class="people"></peopleTextIcon>
-      <bookTextIcon v-if="activeName.book" class="book"></bookTextIcon>
+      <prizeTextIcon v-if="activeName.prize" class="prize"></prizeTextIcon>
 
       <BlockGame v-for="block in gameStore.gameLevel2" :key="block.id" :data-id="block.id" :elem="block">
       </BlockGame>
@@ -470,7 +470,7 @@ router.push({ name: 'Instruction'})
   height: 25.9%;
   z-index: 200;
 }
-.book{
+.prize{
   position: absolute;
   top: calc(var(--app-width)* 77.1 / 100);
     left: calc(var(--app-width)* 10.4 / 100);

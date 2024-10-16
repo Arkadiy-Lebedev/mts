@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import BlockGame from '@/components/BlockGame.vue'
 import level1Icon  from '@/components/icons/level1Icon.vue'
 import iconQuestion  from '@/components/icons/questionIcon .vue'
-import kionTextIcon  from '@/components/icons/kionTextIcon.vue'
+import voltTextIcon  from '@/components/icons/voltTextIcon.vue'
 import mtsTextIcon  from '@/components/icons/mtsTextIcon.vue'
 import dartsTextIcon  from '@/components/icons/dartsTextIcon.vue'
 import handleTextIcon  from '@/components/icons/handleTextIcon.vue'
@@ -355,7 +355,7 @@ const handleMouseUp  = (event: MouseEvent) => {
       if (gameStore.gameLevel1.every(item => item.isActive === true)) {
         console.log('УСПЕХХХ', 888)
         helperStore.isInstructions= false
-        openModal('modalFinal')
+        openModal('modalLevel1')
       }
     })
    
@@ -452,7 +452,7 @@ router.push({ name: 'Instruction'})
 
     <div ref="gameRef" class="game">
       <reloadBtn @click="restart" class="reload_btn"></reloadBtn>
-      <kionTextIcon v-if="activeName.kion" class="kion"></kionTextIcon>
+      <voltTextIcon v-if="activeName.volt" class="kion"></voltTextIcon>
       <mtsTextIcon v-if="activeName.mts" class="mts"></mtsTextIcon>
       <dartsTextIcon v-if="activeName.darts" class="darts"></dartsTextIcon>
       <handleTextIcon v-if="activeName.handle" class="handle"></handleTextIcon>
@@ -499,7 +499,7 @@ router.push({ name: 'Instruction'})
 
 .darts{
   position: absolute;
-  top: calc(var(--app-width)* 27.5 / 100);
+  top: calc(var(--app-width)* 27.9 / 100);
     left: calc(var(--app-width)* 26.4 / 100);
     width: 57.8%;
     height: 20.6%;
