@@ -3,9 +3,12 @@ import ButtonMts from '@/UI/ButtonMts.vue'
 import { useRouter } from 'vue-router'
 import { closeModal } from 'jenesius-vue-modal'
 const router = useRouter()
+import { useYandexMetrika } from 'yandex-metrika-vue3'
 
+const yandexMetrika = useYandexMetrika()
 const next = () => {
-    closeModal()
+   yandexMetrika.reachGoal('level2') 
+    closeModal()    
     router.push({ name: 'level2' })
 }
 

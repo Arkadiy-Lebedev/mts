@@ -9,7 +9,9 @@ import pazzle from '../assets/images/start/pazzle.svg'
 import kion from '../assets/images/start/kion.svg'
 import ButtonMts from '../UI/ButtonMts.vue'
 import { onMounted, ref } from 'vue'
+import { useYandexMetrika } from 'yandex-metrika-vue3'
 
+const yandexMetrika = useYandexMetrika()
 const router = useRouter()
 
 const sheraRef = ref<HTMLElement | null>(null)
@@ -66,6 +68,11 @@ gsap.from(sheraRef.value, { duration: 0.5, y: 20, autoAlpha:0.3, ease: 'power2.i
     )
 })
 
+const start = () => {
+    yandexMetrika.reachGoal('start')
+    router.push({ name: 'Instruction' })
+}
+
 </script>
 
 <template>
@@ -84,7 +91,7 @@ gsap.from(sheraRef.value, { duration: 0.5, y: 20, autoAlpha:0.3, ease: 'power2.i
             <p class="sub__title">
                 Мы создаём технологии, которые делают жизнь комфортнее. Тебя ждут амбициозные задачи, разнообразие карьерных треков и возможность менять привычное к лучшему. Узнай больше о компании и преимуществах работы в МТС.
             </p>
-            <ButtonMts @click="router.push({ name: 'Instruction' })" class="btn" text="ИГРАТЬ">
+            <ButtonMts @click="start" class="btn" text="ИГРАТЬ">
             </ButtonMts>
 
         </div>
