@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "ft-client": "^0.1.5",
     "gsap": "^3.12.5",
     "jenesius-vue-modal": "^1.11.9",
     "pinia": "^2.1.7",

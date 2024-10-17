@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
-
+import { FTClient } from 'ft-client'
 import CheckBoxGroup from '../UI/CheckBoxGroup.vue'
 import ButtonMts from '../UI/ButtonMts.vue'
 import InputEmail from '../UI/InputEmail.vue'
 import { onMounted, ref } from 'vue'
 
-const router = useRouter()
-
+const ftClients = new FTClient('https://games-admin.fut.ru/api/', 'mts')
 const check = ref(false)
 const email = ref('')
-const validate = ref(true)
-    
+const validate = ref(true)    
 
     const sendData = async () => {
   if (!check.value) return
@@ -27,6 +25,12 @@ const validate = ref(true)
     validate.value = true
   }
 
+  const formData = {
+    email: email.value
+  }
+
+  const newRecord = await ftClients.createRecord(formData)
+  console.log(newRecord)
 }
 
 const block1Ref = ref<HTMLElement | null>(null)
@@ -36,11 +40,8 @@ onMounted(() => {
     if (!block1Ref.value && !block2Ref.value) {
         return
     }
-
 gsap.from(block1Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOut' })
-gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOut', delay: 0.5 })
-
- 
+gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOut', delay: 0.5 }) 
 })
 
 
@@ -61,20 +62,15 @@ gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOu
                 <div class="input-group">
                     <InputEmail class="--margin10" v-model="email" placeholder="example@post.ru" :validate="validate">
                     </InputEmail>
-
-                    <svg class="button-svg" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg @click="sendData" :class="{check_btn:!check}" class="button-svg" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="43" height="43" rx="10" fill="#BCC3D0" fill-opacity="0.5" />
                         <path
                             d="M10.1776 22.7058L27.9738 22.7058L22.1371 28.6426L23.9281 30.4282L31.4203 22.8595C32.1955 22.0764 32.1913 20.8138 31.4109 20.0359L23.9228 12.5723L22.1318 14.3579L27.9738 20.1802L10.1776 20.1802L10.1776 22.7058Z"
                             fill="#8D969F" />
                     </svg>
-
-
                 </div>
-
             </div>
             <div class="start-content block-two" ref="block2Ref">
-
                 <p class="sub__title">
                     Если хочешь создавать инновационные продукты и менять привычное, переходи на карьерный сайт и
                     оставляй заявку на стажировку.
@@ -90,6 +86,14 @@ gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOu
 </template>
 
 <style scoped>
+
+.button-svg rect{
+    transition: fill 0.3s ease;
+}
+
+.check_btn rect{
+    fill: #dee4ef;
+}
 
 .button-svg{
     width: calc(var(--app-width)* 14.7 / 100);

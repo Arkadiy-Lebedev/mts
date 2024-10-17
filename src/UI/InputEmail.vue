@@ -40,6 +40,6 @@ padding-bottom: calc(var(--app-width)* 2.7 / 100);
 }
 
 .error {
-  border: 2px solid rgb(253, 0, 0);
+  border: 1px solid rgb(253, 0, 0);
 }
 </style>
