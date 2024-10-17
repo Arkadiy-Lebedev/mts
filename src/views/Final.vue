@@ -97,6 +97,7 @@ gsap.from(block2Ref.value, { duration: 1, y: 30, autoAlpha:0, ease: 'power2.inOu
 
 .button-svg{
     width: calc(var(--app-width)* 14.7 / 100);
+    cursor: pointer;
 }
 
 .input-group{
