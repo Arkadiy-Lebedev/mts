@@ -5,105 +5,105 @@ import { onMounted, ref } from 'vue'
 const mRef = ref<HTMLElement | null>(null)
 const TRef = ref<HTMLElement | null>(null)
 const CRef = ref<HTMLElement | null>(null)
-onMounted(() => {
-  if (!mRef.value) {
-    return
-  }
-  const t1 = gsap.timeline({ repeat: -1, delay: 10 })
-  t1.to(mRef.value, {
-    duration: 0.5,
-    yPercent: 270,
-    ease: "power1.inOut",
-  })
-  t1.to(mRef.value, {
-    duration: 0.5,
-    xPercent: 180,
-    ease: "power1.inOut",
-  }
-  )
-  t1.to(mRef.value, {
-    duration: 0.5,
-    yPercent: 0,
-    ease: "power1.inOut",
-  })
-  t1.to(mRef.value, {
-    duration: 0.5,
-    xPercent: 0,
-    ease: "power1.inOut",
-  })
-  t1.to(mRef.value, {
-    duration: 15,
-    xPercent: 0,
-    ease: "power1.inOut",
-  })
+// onMounted(() => {
+//   if (!mRef.value) {
+//     return
+//   }
+//   const t1 = gsap.timeline({ repeat: -1, delay: 10 })
+//   t1.to(mRef.value, {
+//     duration: 0.5,
+//     yPercent: 270,
+//     ease: "power1.inOut",
+//   })
+//   t1.to(mRef.value, {
+//     duration: 0.5,
+//     xPercent: 180,
+//     ease: "power1.inOut",
+//   }
+//   )
+//   t1.to(mRef.value, {
+//     duration: 0.5,
+//     yPercent: 0,
+//     ease: "power1.inOut",
+//   })
+//   t1.to(mRef.value, {
+//     duration: 0.5,
+//     xPercent: 0,
+//     ease: "power1.inOut",
+//   })
+//   t1.to(mRef.value, {
+//     duration: 15,
+//     xPercent: 0,
+//     ease: "power1.inOut",
+//   })
 
 
-  const t2 = gsap.timeline({ repeat: -1, delay: 10 })
-  t2.to(TRef.value, {
-    duration: 0.5,
-    xPercent: -220,
-    ease: "power1.inOut",
-  }
-  )
-  t2.to(TRef.value, {
-    duration: 0.5,
-    yPercent: 270,
-    ease: "power1.inOut",
-  })
-  t2.to(TRef.value, {
-    duration: 0.5,
-    xPercent: 0,
-    ease: "power1.inOut",
-  })
+//   const t2 = gsap.timeline({ repeat: -1, delay: 10 })
+//   t2.to(TRef.value, {
+//     duration: 0.5,
+//     xPercent: -220,
+//     ease: "power1.inOut",
+//   }
+//   )
+//   t2.to(TRef.value, {
+//     duration: 0.5,
+//     yPercent: 270,
+//     ease: "power1.inOut",
+//   })
+//   t2.to(TRef.value, {
+//     duration: 0.5,
+//     xPercent: 0,
+//     ease: "power1.inOut",
+//   })
  
-  t2.to(TRef.value, {
-    duration: 0.5,
-    yPercent: 0,
-    ease: "power1.inOut",
-  })
-  t2.to(TRef.value, {
-    duration: 15,
-    yPercent: 0,
-    ease: "power1.inOut",
-  })
+//   t2.to(TRef.value, {
+//     duration: 0.5,
+//     yPercent: 0,
+//     ease: "power1.inOut",
+//   })
+//   t2.to(TRef.value, {
+//     duration: 15,
+//     yPercent: 0,
+//     ease: "power1.inOut",
+//   })
 
 
-  const t3 = gsap.timeline({ repeat: -1, delay: 10 })
-  t3.to(CRef.value, {
-    duration: 0.5,
-    yPercent: -270,
-    ease: "power1.inOut",
-  })
+//   const t3 = gsap.timeline({ repeat: -1, delay: 10 })
+//   t3.to(CRef.value, {
+//     duration: 0.5,
+//     yPercent: -270,
+//     ease: "power1.inOut",
+//   })
 
-  t3.to(CRef.value, {
-    duration: 0.5,
-    xPercent: -200,
-    ease: "power1.inOut",
-  })
+//   t3.to(CRef.value, {
+//     duration: 0.5,
+//     xPercent: -200,
+//     ease: "power1.inOut",
+//   })
 
-  t3.to(CRef.value, {
-    duration: 0.5,
-    yPercent: 0,
-    ease: "power1.inOut",
-  })
+//   t3.to(CRef.value, {
+//     duration: 0.5,
+//     yPercent: 0,
+//     ease: "power1.inOut",
+//   })
 
-  t3.to(CRef.value, {
-    duration: 0.5,
-    xPercent: 0,
-    ease: "power1.inOut",
-  })
-  t3.to(CRef.value, {
-    duration: 15,
-    xPercent: 0,
-    ease: "power1.inOut",
-  })
+//   t3.to(CRef.value, {
+//     duration: 0.5,
+//     xPercent: 0,
+//     ease: "power1.inOut",
+//   })
+//   t3.to(CRef.value, {
+//     duration: 15,
+//     xPercent: 0,
+//     ease: "power1.inOut",
+//   })
 
 
  
  
 
 
-})
+// })
 
 </script>
 
