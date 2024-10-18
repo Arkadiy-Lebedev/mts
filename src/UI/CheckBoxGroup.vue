@@ -18,7 +18,7 @@ const modelValue = defineModel()
       <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">
         обработку персональных данных FutureToday</a> <span class="black">и</span> <a target="_blank" class="label-check link" href="https://moskva.mts.ru/about/investoram-i-akcioneram/korporativnoe-upravlenie/dokumenti-pao-mts/politika-obrabotka-personalnih-dannih-v-pao-mts">МТС</a>
       и получение информационных сообщений, а также с
-      <a target="_blank" class="label-check link" href="https://doc.fut.ru/personal_data_policy.pdf"
+      <a target="_blank" class="label-check link" href="https://createwithmts.fut.ru/agreement.pdf"
         >правилами проведения акции.</a
       ></label
     >
