@@ -6,6 +6,7 @@ import modal from '@/components/modals/modal.vue'
 import modalLevel1 from '@/components/modals/modalLevel1.vue'
 import modalLevel2 from '@/components/modals/modalLevel2.vue'
 import modalFinal from '@/components/modals/modalFinal.vue'
+import modalInfo from '@/components/modals/modalInfo.vue'
 
 config({
   backgroundClose: false,
@@ -14,6 +15,7 @@ config({
     modalLevel1: modalLevel1,
     modalLevel2: modalLevel2,
     modalFinal: modalFinal,
+    modalInfo: modalInfo,
   }
 
 })

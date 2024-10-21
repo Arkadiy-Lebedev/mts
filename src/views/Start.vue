@@ -13,7 +13,7 @@ import { useYandexMetrika } from 'yandex-metrika-vue3'
 
 const yandexMetrika = useYandexMetrika()
 const router = useRouter()
-
+import { openModal } from 'jenesius-vue-modal'
 const sheraRef = ref<HTMLElement | null>(null)
 const mtsRef = ref<HTMLElement | null>(null)
 const pazzleRef = ref<HTMLElement | null>(null)
@@ -70,7 +70,8 @@ gsap.from(sheraRef.value, { duration: 0.5, y: 20, autoAlpha:0.3, ease: 'power2.i
 
 const start = () => {
     yandexMetrika.reachGoal('start')
-    router.push({ name: 'Instruction' })
+
+    openModal('modalInfo')
 }
 
 </script>
