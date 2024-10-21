@@ -3,10 +3,10 @@ import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import shera from '../assets/images/start/shera.png'
 import mts from '../assets/images/start/mts.png'
-import live from '../assets/images/start/live.svg'
-import s from '../assets/images/start/s.svg'
-import pazzle from '../assets/images/start/pazzle.svg'
-import kion from '../assets/images/start/kion.svg'
+import live from '../assets/images/start/live.png'
+import s from '../assets/images/start/s.png'
+import pazzle from '../assets/images/start/pazzle.png'
+import kion from '../assets/images/start/kion.png'
 import ButtonMts from '../UI/ButtonMts.vue'
 import { onMounted, ref } from 'vue'
 import { useYandexMetrika } from 'yandex-metrika-vue3'
@@ -29,9 +29,9 @@ onMounted(() => {
 gsap.from(sheraRef.value, { duration: 0.5, y: 20, autoAlpha:0.3, ease: 'power2.inOut' })
     gsap.from(mtsRef.value, { duration: 1, y: -30, autoAlpha: 0.0, ease: 'power2.inOut', delay: 0.3, translateX: 50 })
     gsap.from(pazzleRef.value, { duration: 1, x: 50, autoAlpha:0.0, ease: 'power2.inOut', delay:0.7}) 
-    gsap.from(liveRef.value, { duration: 0.8, scale: 0, autoAlpha: 0.0, ease: 'power2.inOut', delay: 0.9, rotation: '+=180' }) 
-    gsap.from(kionRef.value, { duration: 0.8, scale: 0, y: 50, autoAlpha: 0.0, ease: 'power2.inOut', delay: 1.2, rotation: '+=180' }) 
-    gsap.from(sRef.value, { duration: 1.5, scale: 0, y: -150, autoAlpha: 0.0, ease: 'power2.inOut', delay: 1.3, }) 
+    gsap.from(liveRef.value, { duration: 0.8, autoAlpha: 0.0, ease: 'power2.inOut', delay: 0.9, rotation: '+=180' }) 
+    gsap.from(kionRef.value, { duration: 0.8, y: 50, opacity: 0.0, ease: 'power2.inOut', delay: 1.2, rotation: '+=180' }) 
+    gsap.from(sRef.value, { duration: 1.5, y: -150, autoAlpha: 0.0, ease: 'power2.inOut', delay: 1.3, }) 
 
   const  t1 = gsap.timeline({ repeat: -1, delay: 1.5 })
     t1.to(mtsRef.value, {

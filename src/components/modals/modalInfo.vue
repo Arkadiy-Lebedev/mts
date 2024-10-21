@@ -17,9 +17,9 @@ const next = () => {
 <template>
     <div class="modal-wrapper">
         <p class="sub__title-modal">
-            Чтобы все уровни загружались без проблем, проходи игру в браузере
+            Если перешли в игру из Telegram, лучше открыть ссылку в браузере - это даёт + 1000 к твоей удаче.
         </p>
-        <ButtonMts  @click="next" class="btn" text="ХОРОШО">
+        <ButtonMts @click="next" class="btn" text="ХОРОШО">
         </ButtonMts>
     </div>
 
