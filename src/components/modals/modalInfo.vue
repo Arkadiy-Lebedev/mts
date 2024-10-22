@@ -17,7 +17,7 @@ const next = () => {
 <template>
     <div class="modal-wrapper">
         <p class="sub__title-modal">
-            Если перешли в игру из Telegram, лучше открыть ссылку в браузере - это даёт + 1000 к твоей удаче.
+            Если перешел в игру из Telegram, лучше открыть ссылку в браузере - это даёт + 1000 к твоей удаче.
         </p>
         <ButtonMts @click="next" class="btn" text="ХОРОШО">
         </ButtonMts>
