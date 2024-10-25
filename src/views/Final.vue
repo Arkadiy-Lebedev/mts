@@ -89,7 +89,7 @@ onMounted(() => {
                     </p>
                 </div>
             </div>
-            <div class="start-content block-two" ref="block2Ref">
+            <!-- <div class="start-content block-two" ref="block2Ref">
                 <p class="sub__title">
                     Если хочешь создавать инновационные продукты и менять привычное, переходи на карьерный сайт и
                     оставляй заявку на стажировку.
@@ -98,7 +98,7 @@ onMounted(() => {
                     <ButtonMts class="btn" text="К СТАЖИРОВКЕ">
                     </ButtonMts>
                 </a>
-            </div>
+            </div> -->
         </div>
 
     </section>
