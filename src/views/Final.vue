@@ -55,7 +55,7 @@ onMounted(() => {
 <template>
     <section class="final">
         <div class="wrqpper">
-            <div class="start-content" ref="block1Ref">
+            <!-- <div class="start-content" ref="block1Ref">
                 <p class="title">
                     Теперь ты знаешь, как МТС поддерживает и развивает своих сотрудников!
                 </p>
@@ -88,17 +88,21 @@ onMounted(() => {
                         </svg>
                     </p>
                 </div>
-            </div>
-            <!-- <div class="start-content block-two" ref="block2Ref">
+            </div> -->
+            <div class="start-content block-two" ref="block2Ref">
+                <p class="title">
+                    Теперь ты знаешь, как МТС поддерживает и развивает своих сотрудников!
+                </p>
                 <p class="sub__title">
                     Если хочешь создавать инновационные продукты и менять привычное, переходи на карьерный сайт и
                     оставляй заявку на стажировку.
                 </p>
-                <a href="https://job.mts.ru/programs" target="_blank" class="" @click="yandexMetrika.reachGoal('site')">
+                <a href="https://job.mts.ru/programs?utm_source=future&utm_medium=site&utm_campaign=game"
+                    target="_blank" class="" @click="yandexMetrika.reachGoal('site')">
                     <ButtonMts class="btn" text="К СТАЖИРОВКЕ">
                     </ButtonMts>
                 </a>
-            </div> -->
+            </div>
         </div>
 
     </section>
